@@ -170,7 +170,8 @@ class SearchScreen extends SearchDelegate {
         Homepage.allproducts.where((product) {
           return (product as Product).name!.toLowerCase().contains(
             query.toLowerCase(),
-          );
+          )|| (product).category!.toLowerCase().contains(
+            query.toLowerCase());
         }).toList();
 
     return ListView.builder(
