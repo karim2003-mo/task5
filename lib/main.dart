@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         scrollBehavior: const MaterialScrollBehavior().copyWith(
-    physics: const BouncingScrollPhysics(),
+    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
   ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

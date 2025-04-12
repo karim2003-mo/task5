@@ -31,9 +31,7 @@ class _HomepageState extends State<Homepage> {
     StdFontSize fontsize = StdFontSize(screenwidth: screenwidth);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(
-          screenheight / 11,
-        ),
+        preferredSize: Size.fromHeight(screenheight / 11),
         child: Align(
           child: AppBar(
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -55,17 +53,11 @@ class _HomepageState extends State<Homepage> {
         create: (context) => HttpCubitState()..fetchdata(),
         child: RefreshIndicator(
           onRefresh: () {
-            return Future.delayed(
-              Duration(seconds: 0),
-              () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => 
-                      Homepage()
-                  ),
-                );
-              },
-            );
+            return Future.delayed(Duration(seconds: 0), () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Homepage()),
+              );
+            });
           },
           child: Stack(
             children: [
@@ -81,7 +73,6 @@ class _HomepageState extends State<Homepage> {
                     } else if (state is Loaded) {
                       Homepage.allproducts = state.data!;
                       return ListView.builder(
-                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                         itemCount: state.data!.length,
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -124,13 +115,15 @@ class _HomepageState extends State<Homepage> {
                                                 .imageUrl!,
                                       ),
                                     ),
-                                    
+
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(
                                           capitalizeEachWord(
-                                            (state.data![index] as Product).name!,
+                                            (state.data![index] as Product)
+                                                .name!,
                                           ),
                                           style: GoogleFonts.poppins(
                                             fontSize: fontsize.medium,
@@ -163,7 +156,8 @@ class _HomepageState extends State<Homepage> {
                                             Stack(
                                               children: [
                                                 Text(
-                                                  ((state.data![index] as Product)
+                                                  ((state.data![index]
+                                                                  as Product)
                                                               .offer !=
                                                           null)
                                                       ? "${((state.data![index] as Product).price! * ((100 + (state.data![index] as Product).offer!) / 100)).toStringAsFixed(2)}\$"
@@ -198,7 +192,8 @@ class _HomepageState extends State<Homepage> {
                                                     style: GoogleFonts.poppins(
                                                       fontSize:
                                                           0.8 * fontsize.medium,
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 )
@@ -224,31 +219,36 @@ class _HomepageState extends State<Homepage> {
                                 fontSize: fontsize.large,
                               ),
                             ),
-                             ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:Color.fromRGBO(94, 207, 202, 0.753),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    BlocProvider.of<HttpCubitState>(context)
-                                        .fetchdata();
-                                        setState(() {
-                                          
-                                        });
-                                  },
-                                  child: Text(
-                                    "Retry",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: fontsize.large,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white
-                                    ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromRGBO(
+                                  94,
+                                  207,
+                                  202,
+                                  0.753,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
                                   ),
                                 ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => Homepage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Retry",
+                                style: GoogleFonts.poppins(
+                                  fontSize: fontsize.large,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -262,7 +262,8 @@ class _HomepageState extends State<Homepage> {
                   onPressed: () {
                     showSearch(context: context, delegate: SearchScreen());
                   },
-                  backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                  backgroundColor:
+                      Theme.of(context).appBarTheme.backgroundColor,
                   child: Icon(Icons.search),
                 ),
               ),
@@ -309,26 +310,24 @@ class ProductDescription extends StatelessWidget {
         children: [
           Text(description, style: GoogleFonts.poppins(fontSize: fontSize)),
           ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:Color.fromRGBO(94, 207, 202, 0.753),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  "BUY",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: fontSize,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white
-                                  ),
-                                ),
-                              ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromRGBO(94, 207, 202, 0.753),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "BUY",
+              style: GoogleFonts.poppins(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -454,10 +453,15 @@ class SearchScreen extends SearchDelegate {
                               ),
                             ),
                             Align(
-                              alignment: Alignment(0,0.9),
+                              alignment: Alignment(0, 0.9),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:Color.fromRGBO(94, 207, 202, 0.753),
+                                  backgroundColor: Color.fromRGBO(
+                                    94,
+                                    207,
+                                    202,
+                                    0.753,
+                                  ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20),
@@ -470,7 +474,7 @@ class SearchScreen extends SearchDelegate {
                                   style: GoogleFonts.poppins(
                                     fontSize: fontsize.large,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
